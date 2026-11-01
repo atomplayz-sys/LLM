@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "personal-llm"
+version = "0.1.0"
+description = "A personal LLM fine-tuned on Open-Platypus dataset using LoRA"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1.0",
+    "transformers>=4.36.0",
+    "datasets>=2.16.0",
+    "accelerate>=0.25.0",
+    "peft>=0.7.0",
+    "trl>=0.7.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "slowapi>=0.1.9",
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "sentencepiece>=0.1.99",
+    "protobuf>=3.20.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "httpx>=0.25.0",
+    "ruff>=0.4.0",
+]
+
+# ─── Tool Configuration ──────────────────────────────────────────
+
+[tool.setuptools.packages.find]
+include = ["src*", "backend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes (unused imports, undefined names)
+    "I",    # isort (import ordering)
+    "UP",   # pyupgrade (modern Python syntax)
+    "B",    # flake8-bugbear (common bugs)
+    "SIM",  # flake8-simplify
+    "T20",  # flake8-print (flag print statements)
+]
+ignore = [
+    "E501",  # line length — handled by formatter
+    "T201",  # print() — we use logging, but keep for CLI scripts
+]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["T201"]  # Allow print() in CLI scripts
+"tests/*" = ["B011"]    # Allow assert True/False in tests
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "backend"]
+
+[tool.bandit]
+exclude_dirs = ["venv", "tests"]
+skips = ["B615"]  # Model/dataset downloads from HF Hub without revision hash; documented in MODEL_CARD.md

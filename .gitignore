@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model outputs
+output/
+checkpoints/
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# HuggingFace cache
+.cache/
+
+# Logs
+logs/
+*.log
+wandb/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Secrets & credentials
+*.secret
+credentials*
+service-account*
+*.pem
+*.key
+*.p12
+*.pfx
+

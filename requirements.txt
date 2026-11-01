@@ -1,0 +1,33 @@
+# Core ML
+torch>=2.1.0
+transformers>=4.36.0
+datasets>=2.16.0
+accelerate>=0.25.0
+
+# Parameter-Efficient Fine-Tuning
+peft>=0.7.0
+trl>=0.7.0
+
+# NOTE: bitsandbytes is NOT included — it requires NVIDIA CUDA.
+# On Mac (Apple Silicon / MPS), we use float32 instead of 4-bit quantization.
+# If you have an NVIDIA GPU, uncomment the next line:
+# bitsandbytes>=0.41.0
+
+# Backend
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+slowapi>=0.1.9
+python-dotenv>=1.0.0
+
+# Configuration
+pyyaml>=6.0
+
+# Utilities
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# Testing
+pytest>=7.4.0
+httpx>=0.25.0
+

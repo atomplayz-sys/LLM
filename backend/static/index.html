@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal LLM — Workspace</title>
+  
+  <!-- Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Markdown & Code Highlighting -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/base16/monokai.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+  <!-- Linear-Inspired Design Stylesheet -->
+  <link rel="stylesheet" href="/static/styles.css" onerror="this.onerror=null;this.href='styles.css';">
+</head>
+<body>
+  <div id="app-container">
+    
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <!-- ─── Sidebar ────────────────────────────────────────────────── -->
+    <aside id="sidebar" aria-label="Conversation Sidebar">
+      
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <!-- Monochromatic Minimal Cube / Grid Glyph -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <span class="brand-title">Personal LLM</span>
+        </a>
+        <div class="sidebar-controls">
+          <button id="collapse-sidebar-btn" class="icon-btn" title="Toggle Sidebar (Cmd+B)" aria-label="Toggle Sidebar">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action & Search -->
+      <div class="sidebar-actions">
+        <button id="new-chat-btn" class="new-chat-btn" title="New Chat (Cmd+K)">
+          <div class="btn-label-group">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>New Chat</span>
+          </div>
+          <span class="kbd">⌘K</span>
+        </button>
+
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="conversation-search" class="search-input" placeholder="Search conversations..." aria-label="Search conversations">
+        </div>
+      </div>
+
+      <!-- History List -->
+      <div class="history-label">Recents</div>
+      <div id="history-list" class="sidebar-history" role="list">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span id="health-dot" class="status-dot"></span>
+          <span id="device-label" class="status-text">TinyLlama • Ready</span>
+        </div>
+        <button id="open-settings-btn" class="icon-btn" title="Settings" aria-label="Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ─── Main Workspace ─────────────────────────────────────────── -->
+    <main id="main-workspace">
+      
+      <!-- Top Navigation -->
+      <header class="top-nav">
+        <div class="nav-left">
+          <button id="mobile-toggle-btn" class="icon-btn" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <span id="active-chat-title" class="conversation-heading">New Conversation</span>
+          <span class="model-badge">TinyLlama-1.1B • LoRA</span>
+        </div>
+
+        <div class="nav-actions">
+          <button id="clear-chat-btn" class="icon-btn" title="Clear Conversation" aria-label="Clear Conversation">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+          <button id="export-chat-btn" class="icon-btn" title="Export as Markdown" aria-label="Export Markdown">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages Viewport -->
+      <section id="conversation-viewport">
+        <div id="messages-container" class="conversation-inner">
+          
+          <!-- Minimal Welcome Screen -->
+          <div id="welcome-view" class="welcome-screen">
+            <div class="welcome-glyph">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <circle cx="9" cy="9" r="1"></circle>
+                <circle cx="15" cy="9" r="1"></circle>
+                <path d="M9 15h6"></path>
+              </svg>
+            </div>
+            <h1 class="welcome-title">Personal LLM Workspace</h1>
+            <p class="welcome-subtitle">
+              Fine-tuned on the Open-Platypus STEM dataset with LoRA.<br>
+              Inference running locally with hardened prompt injection defense.
+            </p>
+
+            <div class="prompt-suggestions">
+              <button class="suggestion-chip" data-prompt="Explain the difference between supervised and unsupervised learning with real examples.">
+                Explain supervised vs. unsupervised learning
+              </button>
+              <button class="suggestion-chip" data-prompt="Write a Python function to check if an integer is prime, optimized for time complexity.">
+                Write an optimized Python prime checker
+              </button>
+              <button class="suggestion-chip" data-prompt="How does LoRA (Low-Rank Adaptation) reduce the number of trainable parameters in LLMs?">
+                How does LoRA adaptation work?
+              </button>
+              <button class="suggestion-chip" data-prompt="What is the time and space complexity of binary search, and why?">
+                Time and space complexity of binary search
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Bottom Message Composer -->
+      <footer class="composer-wrapper">
+        <div class="composer-container">
+          <textarea 
+            id="prompt-input" 
+            rows="1" 
+            placeholder="Send a message... (Shift+Enter for newline)"
+            aria-label="Prompt Input"
+          ></textarea>
+          
+          <div class="composer-footer">
+            <div class="composer-meta">
+              <span id="char-counter">0 / 10,000</span>
+              <span id="temp-indicator">temp 0.7</span>
+            </div>
+            <div class="composer-btn-group">
+              <button id="send-btn" class="send-btn" disabled title="Send Message (Enter)">
+                <span>Send</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- ─── Settings Modal ─────────────────────────────────────────── -->
+  <div id="settings-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="settings-title" class="modal-title">Generation Parameters</h2>
+        <button id="close-settings-btn" class="icon-btn" aria-label="Close Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="setting-row">
+          <div class="setting-label-group">
+            <label for="temp-slider" class="setting-label">Temperature</label>
+            <span id="temp-val" class="setting-value">0.7</span>
+          </div>
+          <input type="range" id="temp-slider" class="setting-slider" min="0.0" max="1.5" step="0.05" value="0.7">
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label-group">
+            <label for="tokens-slider" class="setting-label">Max Tokens</label>
+            <span id="tokens-val" class="setting-value">512</span>
+          </div>
+          <input type="range" id="tokens-slider" class="setting-slider" min="64" max="1024" step="32" value="512">
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label-group">
+            <label for="penalty-slider" class="setting-label">Repetition Penalty</label>
+            <span id="penalty-val" class="setting-value">1.15</span>
+          </div>
+          <input type="range" id="penalty-slider" class="setting-slider" min="1.0" max="1.5" step="0.05" value="1.15">
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-label-group">
+            <label for="api-key-input" class="setting-label">API Key (Optional Header)</label>
+          </div>
+          <input type="password" id="api-key-input" class="setting-input" placeholder="Leave empty if auth is disabled">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button id="save-settings-btn" class="btn-primary">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Script -->
+  <script src="/static/app.js" onerror="this.onerror=null;this.src='app.js';"></script>
+</body>
+</html>
+
