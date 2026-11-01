@@ -8,11 +8,18 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 logger = logging.getLogger(__name__)
 
 
-def get_device() -> str:
-    if torch.backends.mps.is_available():
-        return "mps"
-    elif torch.cuda.is_available():
+def get_device(requested: str | None = None) -> str:
+    if requested:
+        if requested == "cuda" and torch.cuda.is_available():
+            return "cuda"
+        if requested == "mps" and torch.backends.mps.is_available():
+            return "mps"
+        if requested == "cpu":
+            return "cpu"
+    if torch.cuda.is_available():
         return "cuda"
+    elif torch.backends.mps.is_available():
+        return "mps"
     return "cpu"
 
 
@@ -57,7 +64,7 @@ def load_causal_lm(model_name: str, dtype: torch.dtype) -> AutoModelForCausalLM:
 
 def load_base_model(config: dict, for_training: bool = True):
     model_name = config.get("base_model", "TinyLlama/TinyLlama-1.1B-Chat-v1.0")
-    device = config.get("device") or get_device()
+    device = get_device(config.get("device"))
     dtype = get_dtype(device)
     logger.info("Loading base model: %s", model_name)
     logger.info("Device: %s | Dtype: %s", device, dtype)

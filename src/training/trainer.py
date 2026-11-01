@@ -30,7 +30,7 @@ def create_training_args(config: dict) -> TrainingArguments:
     train_cfg = config.get("training", {})
     output_dir = config.get("output_dir", "./output")
     logging_dir = config.get("logging_dir", "./logs")
-    device = config.get("device") or get_device()
+    device = get_device(config.get("device"))
     use_fp16 = False
     use_bf16 = False
     if device == "cuda":
