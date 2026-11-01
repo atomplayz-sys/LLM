@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" style="background:#08090A; font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141517"/>
+      <stop offset="100%" stop-color="#0E0F10"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background Grid Pattern -->
+  <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#16181A" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="675" fill="url(#grid2)" opacity="0.7"/>
+
+  <!-- Top Title Header -->
+  <g transform="translate(60, 40)">
+    <rect x="0" y="0" width="180" height="28" rx="14" fill="#181A1C" stroke="#292B2E" stroke-width="1"/>
+    <circle cx="14" cy="14" r="5" fill="#27A644"/>
+    <text x="28" y="18" fill="#F7F8F8" font-size="12" font-weight="600" letter-spacing="0.5">TRAINING PIPELINE</text>
+    
+    <text x="0" y="65" fill="#F7F8F8" font-size="28" font-weight="700" letter-spacing="-0.5">LoRA Fine-Tuning &amp; Model Optimization Workflow</text>
+    <text x="0" y="90" fill="#717780" font-size="14" font-weight="400">Parameter-Efficient Fine-Tuning (PEFT) on Open-Platypus reasoning dataset with Low-Rank Adapters</text>
+  </g>
+
+  <!-- 3 Big Cards Layout -->
+  
+  <!-- CARD 1: DATA & PREPROCESSING -->
+  <g transform="translate(60, 160)" filter="url(#shadow2)">
+    <rect width="335" height="420" rx="10" fill="url(#cardGrad2)" stroke="#292B2E" stroke-width="1"/>
+    
+    <rect x="24" y="24" width="36" height="36" rx="8" fill="#1C1E20" stroke="#292B2E"/>
+    <text x="36" y="48" fill="#27A644" font-size="15" font-weight="700">01</text>
+    <text x="74" y="38" fill="#F7F8F8" font-size="17" font-weight="600">Dataset &amp; ChatML</text>
+    <text x="74" y="54" fill="#717780" font-size="12">Data Curation &amp; Mapping</text>
+    <line x1="24" y1="76" x2="311" y2="76" stroke="#202225" stroke-width="1"/>
+
+    <g transform="translate(24, 95)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">garage-bAInd/Open-Platypus</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">25,000 curated STEM &amp; logic instruction pairs</text>
+    </g>
+
+    <g transform="translate(24, 170)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Standardized ChatML Schema</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">&lt;|system|&gt; ... &lt;|user|&gt; ... &lt;|assistant|&gt;</text>
+    </g>
+
+    <g transform="translate(24, 245)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Deterministic Tokenizer Caps</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">Right-padded sequence length cap (512 tokens)</text>
+    </g>
+
+    <rect x="24" y="355" width="287" height="38" rx="6" fill="#19251C" stroke="#27A644" stroke-opacity="0.3"/>
+    <text x="167" y="379" fill="#27A644" font-size="12" font-weight="600" text-anchor="middle">Tokenized Training Batches ➔</text>
+  </g>
+
+  <!-- Flow 1 -> 2 -->
+  <path d="M 405 370 L 435 370" stroke="#27A644" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="435,365 445,370 435,375" fill="#27A644"/>
+
+  <!-- CARD 2: LORA ADAPTER CONFIGURATION -->
+  <g transform="translate(450, 160)" filter="url(#shadow2)">
+    <rect width="335" height="420" rx="10" fill="url(#cardGrad2)" stroke="#292B2E" stroke-width="1"/>
+    
+    <rect x="24" y="24" width="36" height="36" rx="8" fill="#1C1E20" stroke="#292B2E"/>
+    <text x="36" y="48" fill="#27A644" font-size="15" font-weight="700">02</text>
+    <text x="74" y="38" fill="#F7F8F8" font-size="17" font-weight="600">LoRA Matrix Math</text>
+    <text x="74" y="54" fill="#717780" font-size="12">Rank Decomposition (PEFT)</text>
+    <line x1="24" y1="76" x2="311" y2="76" stroke="#202225" stroke-width="1"/>
+
+    <g transform="translate(24, 95)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Base Model Frozen (W₀)</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">TinyLlama-1.1B weights locked (1.1 Billion params)</text>
+    </g>
+
+    <g transform="translate(24, 170)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Low-Rank Matrices: ΔW = B · A</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">Rank r = 8 | Alpha = 16 | Dropout = 0.05</text>
+    </g>
+
+    <g transform="translate(24, 245)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Target Modules (Attention)</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">q_proj, k_proj, v_proj, o_proj (0.2% trainable)</text>
+    </g>
+
+    <rect x="24" y="355" width="287" height="38" rx="6" fill="#19251C" stroke="#27A644" stroke-opacity="0.3"/>
+    <text x="167" y="379" fill="#27A644" font-size="12" font-weight="600" text-anchor="middle">PEFT Model Graph ➔</text>
+  </g>
+
+  <!-- Flow 2 -> 3 -->
+  <path d="M 795 370 L 825 370" stroke="#27A644" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="825,365 835,370 825,375" fill="#27A644"/>
+
+  <!-- CARD 3: SFTTRAINER & CHECKPOINT EXPORT -->
+  <g transform="translate(840, 160)" filter="url(#shadow2)">
+    <rect width="335" height="420" rx="10" fill="url(#cardGrad2)" stroke="#292B2E" stroke-width="1"/>
+    
+    <rect x="24" y="24" width="36" height="36" rx="8" fill="#1C1E20" stroke="#292B2E"/>
+    <text x="36" y="48" fill="#27A644" font-size="15" font-weight="700">03</text>
+    <text x="74" y="38" fill="#F7F8F8" font-size="17" font-weight="600">SFTTrainer &amp; Output</text>
+    <text x="74" y="54" fill="#717780" font-size="12">Hardware-Accelerated Training</text>
+    <line x1="24" y1="76" x2="311" y2="76" stroke="#202225" stroke-width="1"/>
+
+    <g transform="translate(24, 95)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Gradient Accumulation (8 steps)</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">Effective batch size = 16 | Cosine LR scheduler</text>
+    </g>
+
+    <g transform="translate(24, 170)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Hardware Runtime Selection</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">Apple Silicon MPS / NVIDIA CUDA FP16</text>
+    </g>
+
+    <g transform="translate(24, 245)">
+      <rect width="287" height="60" rx="6" fill="#161719" stroke="#232528"/>
+      <text x="16" y="26" fill="#F7F8F8" font-size="13" font-weight="600">Saved Adapter Weights</text>
+      <text x="16" y="46" fill="#A1A1AA" font-size="11">Exported to ./output/final/adapter_model.bin</text>
+    </g>
+
+    <rect x="24" y="355" width="287" height="38" rx="6" fill="#19251C" stroke="#27A644" stroke-opacity="0.3"/>
+    <text x="167" y="379" fill="#27A644" font-size="12" font-weight="600" text-anchor="middle">✔ Ready for Fast Local Inference</text>
+  </g>
+
+  <!-- Footer Metadata -->
+  <g transform="translate(60, 620)">
+    <text x="0" y="20" fill="#717780" font-size="12">GitHub: https://github.com/atomplayz-sys/LLM</text>
+    <text x="1080" y="20" fill="#717780" font-size="12" text-anchor="end">TRL SFTTrainer • HuggingFace PEFT • PyTorch</text>
+  </g>
+</svg>
