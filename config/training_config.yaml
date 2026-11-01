@@ -1,52 +1,33 @@
-# ============================================================
-# Personal LLM — Training Configuration
-# ============================================================
-# Configured for: Apple Silicon Mac (M5 / MPS)
-
-# Base model from HuggingFace Hub
 base_model: "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-
-# Dataset
 dataset:
   name: "garage-bAInd/Open-Platypus"
   split: "train"
-  max_samples: null  # Set to an integer to limit samples (e.g., 1000 for testing)
-
-# LoRA Configuration
+  max_samples: null
 lora:
-  r: 8                     # LoRA rank — reduced for 16GB Mac
-  alpha: 16                # LoRA alpha — scaling factor (typically 2x rank)
-  dropout: 0.05            # Dropout for LoRA layers
-  target_modules:          # Which layers to apply LoRA to
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules:
     - "q_proj"
     - "k_proj"
     - "v_proj"
     - "o_proj"
-
-# Training Hyperparameters
 training:
   epochs: 3
-  per_device_batch_size: 2           # Reduced for 16GB RAM
-  gradient_accumulation_steps: 8     # Compensate for smaller batch (effective batch = 16)
+  per_device_batch_size: 2
+  gradient_accumulation_steps: 8
   learning_rate: 2.0e-4
   weight_decay: 0.01
   warmup_ratio: 0.03
   lr_scheduler_type: "cosine"
   max_seq_length: 512
-  fp16: false              # Mac MPS does not support fp16 training
-  bf16: false              # Set true if MPS bf16 works on your macOS version
+  fp16: false
+  bf16: false
   logging_steps: 10
   save_steps: 200
   save_total_limit: 2
-
-# Device — "mps" for Apple Silicon, "cuda" for NVIDIA, "cpu" for fallback
 device: "mps"
-
-# Quantization — DISABLED on Mac (bitsandbytes requires NVIDIA CUDA)
 quantization:
   enabled: false
-
-# Output
 output_dir: "./output"
 logging_dir: "./logs"
-

@@ -4,34 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal LLM — Workspace</title>
-  
-  <!-- Inter & JetBrains Mono Fonts -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Markdown & Code Highlighting -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/base16/monokai.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
-  <!-- Linear-Inspired Design Stylesheet -->
   <link rel="stylesheet" href="/static/styles.css" onerror="this.onerror=null;this.href='styles.css';">
 </head>
 <body>
   <div id="app-container">
-    
-    <!-- Mobile Sidebar Backdrop -->
+
     <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
-    <!-- ─── Sidebar ────────────────────────────────────────────────── -->
     <aside id="sidebar" aria-label="Conversation Sidebar">
-      
-      <!-- Sidebar Header -->
+
       <div class="sidebar-header">
         <a href="#" class="brand">
           <div class="brand-icon">
-            <!-- Monochromatic Minimal Cube / Grid Glyph -->
+            
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7"></rect>
               <rect x="14" y="3" width="7" height="7"></rect>
@@ -51,7 +45,6 @@
         </div>
       </div>
 
-      <!-- Action & Search -->
       <div class="sidebar-actions">
         <button id="new-chat-btn" class="new-chat-btn" title="New Chat (Cmd+K)">
           <div class="btn-label-group">
@@ -73,13 +66,11 @@
         </div>
       </div>
 
-      <!-- History List -->
       <div class="history-label">Recents</div>
       <div id="history-list" class="sidebar-history" role="list">
-        <!-- Rendered dynamically -->
+        
       </div>
 
-      <!-- Sidebar Footer -->
       <div class="sidebar-footer">
         <div class="system-status">
           <span id="health-dot" class="status-dot"></span>
@@ -95,10 +86,8 @@
 
     </aside>
 
-    <!-- ─── Main Workspace ─────────────────────────────────────────── -->
     <main id="main-workspace">
-      
-      <!-- Top Navigation -->
+
       <header class="top-nav">
         <div class="nav-left">
           <button id="mobile-toggle-btn" class="icon-btn" title="Toggle Sidebar" aria-label="Toggle Sidebar">
@@ -129,11 +118,9 @@
         </div>
       </header>
 
-      <!-- Messages Viewport -->
       <section id="conversation-viewport">
         <div id="messages-container" class="conversation-inner">
-          
-          <!-- Minimal Welcome Screen -->
+
           <div id="welcome-view" class="welcome-screen">
             <div class="welcome-glyph">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -168,7 +155,6 @@
         </div>
       </section>
 
-      <!-- Bottom Message Composer -->
       <footer class="composer-wrapper">
         <div class="composer-container">
           <textarea 
@@ -200,7 +186,6 @@
 
   </div>
 
-  <!-- ─── Settings Modal ─────────────────────────────────────────── -->
   <div id="settings-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settings-title">
     <div class="modal-card">
       <div class="modal-header">
@@ -252,8 +237,6 @@
     </div>
   </div>
 
-  <!-- Application Script -->
   <script src="/static/app.js" onerror="this.onerror=null;this.src='app.js';"></script>
 </body>
 </html>
-

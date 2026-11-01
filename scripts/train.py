@@ -1,12 +1,3 @@
-"""
-Training Entry Point Script
-
-Run from the project root:
-    python scripts/train.py
-    python scripts/train.py --config config/training_config.yaml
-    python scripts/train.py --quick-test   # Train on 100 samples for testing
-"""
-
 import argparse
 import logging
 import os
@@ -37,11 +28,8 @@ def main():
         action="store_true",
         help="Quick test run with only 100 samples and 1 epoch",
     )
-
     args = parser.parse_args()
-
     if args.quick_test:
-        # Override config for a quick test
         import yaml
 
         config = load_config(args.config)
@@ -49,16 +37,11 @@ def main():
         config["training"]["epochs"] = 1
         config["training"]["save_steps"] = 50
         config["output_dir"] = "./output/test-run"
-
-        # Write temporary config
         temp_config = "config/_temp_test_config.yaml"
         with open(temp_config, "w") as f:
             yaml.dump(config, f)
-
         logger.info("Quick test mode: 100 samples, 1 epoch")
         train(temp_config)
-
-        # Clean up temp config
         os.remove(temp_config)
     else:
         train(args.config)

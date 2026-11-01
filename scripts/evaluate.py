@@ -1,13 +1,3 @@
-"""
-Evaluation Script
-
-Runs the fine-tuned model on a set of test prompts and prints the results.
-
-Usage:
-    python scripts/evaluate.py
-    python scripts/evaluate.py --model-path ./output/final
-"""
-
 import argparse
 import logging
 
@@ -20,9 +10,6 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
-
-
-# Test prompts covering different capabilities
 TEST_PROMPTS = [
     "Explain the concept of recursion in programming with a simple example.",
     "What is the difference between machine learning and deep learning?",
@@ -36,25 +23,16 @@ TEST_PROMPTS = [
 
 
 def evaluate(model_path: str, base_model: str):
-    """Run evaluation on test prompts."""
     print("=" * 70)
     print("📊 Personal LLM — Evaluation")
     print("=" * 70)
-
     generator = LLMGenerator(base_model, model_path)
-
     for i, prompt in enumerate(TEST_PROMPTS, 1):
         print(f"\n{'─' * 70}")
         print(f"📝 [{i}/{len(TEST_PROMPTS)}] {prompt}")
         print(f"{'─' * 70}")
-
-        response = generator.generate(
-            prompt,
-            max_new_tokens=256,
-            temperature=0.7,
-        )
+        response = generator.generate(prompt, max_new_tokens=256, temperature=0.7)
         print(f"🤖 {response}")
-
     print(f"\n{'=' * 70}")
     print("✅ Evaluation complete!")
     print(f"{'=' * 70}")
@@ -69,11 +47,7 @@ if __name__ == "__main__":
         help="Path to fine-tuned model adapters",
     )
     parser.add_argument(
-        "--base-model",
-        type=str,
-        default=settings.BASE_MODEL,
-        help="Base model name",
+        "--base-model", type=str, default=settings.BASE_MODEL, help="Base model name"
     )
-
     args = parser.parse_args()
     evaluate(args.model_path, args.base_model)
