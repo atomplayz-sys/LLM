@@ -40,18 +40,40 @@ The **Personal LLM** project demonstrates the complete lifecycle of a lightweigh
 
 ## ⚡ Quick Start (Run & Chat in 30 Seconds)
 
+### On macOS / Linux
 ```bash
 # 1. Clone & enter repository
-git clone https://github.com/<your-username>/personal-llm.git
-cd personal-llm
+git clone https://github.com/atomplayz-sys/LLM.git
+cd LLM
 
 # 2. Set up virtual environment
 python3 -m venv venv
 source venv/bin/activate
-pip install -e ".[dev]"
+pip install -r requirements.txt
 
 # 3. Start the server
-uvicorn backend.main:app --reload
+uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### On Windows (PowerShell / Command Prompt)
+```powershell
+# 1. Clone & enter repository
+git clone https://github.com/atomplayz-sys/LLM.git
+cd LLM
+
+# 2. Set up virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# 3. Install dependencies
+# If you have an NVIDIA GPU (CUDA acceleration):
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirements.txt
+# If CPU-only:
+# pip install -r requirements.txt
+
+# 4. Start the server
+uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 Open your browser at **[http://localhost:8000](http://localhost:8000)** (or `http://localhost:8000/chat`) to chat immediately in the Linear-inspired dark workspace!
@@ -159,31 +181,58 @@ personal-llm/
 
 ## ⚡ Installation & Setup
 
-### 1. Prerequisites
+### 1. Prerequisites & Hardware Compatibility
 - Python 3.10, 3.11, or 3.12
-- macOS (Apple Silicon M-series recommended) or Linux with NVIDIA GPU
+- Hardware auto-detection:
+  - **macOS**: Apple Silicon M-series (M1/M2/M3/M4/M5) via Metal Performance Shaders (`MPS`).
+  - **Windows / Linux**: NVIDIA GPUs via `CUDA` (with FP16 acceleration) or any modern CPU (with standard FP32).
 
 ### 2. Environment Setup
 
+#### Option A: Windows (PowerShell / Command Prompt)
+```powershell
+# Clone the repository
+git clone https://github.com/atomplayz-sys/LLM.git
+cd LLM
+
+# Create & activate virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# Install dependencies (NVIDIA GPU with CUDA):
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirements.txt
+
+# Or if CPU-only (no NVIDIA GPU):
+# pip install -r requirements.txt
+```
+
+#### Option B: macOS / Linux (Terminal)
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/personal-llm.git
-cd personal-llm
+git clone https://github.com/atomplayz-sys/LLM.git
+cd LLM
 
-# Create virtual environment
+# Create & activate virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-# Install in editable mode with development dependencies
-pip install -e ".[dev]"
+# Install dependencies
+pip install -r requirements.txt
 ```
 
 ### 3. Environment Variables Configuration
 
 Copy the example configuration to `.env`:
 
+**macOS / Linux:**
 ```bash
 cp .env.example .env
+```
+
+**Windows (PowerShell):**
+```powershell
+Copy-Item .env.example .env
 ```
 
 Review and adjust settings in `.env` as needed:
